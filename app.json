@@ -1,0 +1,10 @@
+{
+  "name": "CHT Docs",
+  "description": "Test deployment of CHT Docs",
+  "repository": "https://github.com/jkuester/cht-docs",
+  "buildpacks": [
+    {
+      "url": "https://github.com/roperzh/heroku-buildpack-hugo"
+    }
+  ]
+}
