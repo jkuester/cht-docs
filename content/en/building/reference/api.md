@@ -2079,6 +2079,162 @@ Content-Type: application/json; charset=utf-8
 }
 ```
 
+## Target Interval
+
+### GET/api/v1/target-interval/{{uuid}}
+
+*Added in 5.1.0*
+
+Returns a target interval's data in JSON format.
+
+#### Examples
+
+Get a report by uuid:
+
+```
+GET /api/v1/target-interval/target~2025-07~8a1cb778-f0df-43fc-8864-51dd4230f1c8~org.couchdb.user:demo
+```
+
+```
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=utf-8
+
+{
+  "_id": "target~2025-07~8a1cb778-f0df-43fc-8864-51dd4230f1c8~org.couchdb.user:demo",
+  "_rev": "1-fdd38be087ad8bd7aed4f786d480d751",
+  "type": "target",
+  "user": "org.couchdb.user:demo",
+  "owner": "8a1cb778-f0df-43fc-8864-51dd4230f1c8",
+  "reporting_period": "2025-07",
+  "targets": [
+    {
+      "id": "deaths-this-month",
+      "value": {
+        "pass": 0,
+        "total": 0
+      }
+    },
+    {
+      "id": "births-this-month",
+      "value": {
+        "pass": 0,
+        "total": 0
+      }
+    },
+    {
+      "id": "facility-deliveries",
+      "value": {
+        "pass": 0,
+        "total": 0,
+        "percent": 0
+      }
+    }
+  ],
+  "updated_date": 1753851600000
+}
+```
+
+### GET /api/v1/target-interval
+
+*Added in 5.1.0*
+
+Returns a JSON array of target intervals based on the specified page parameters.
+
+#### Query Parameters
+
+| Name             | Required                         | Description                                                                                                                                                                                                              |
+|------------------|----------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| reporting_period | true                             | The reporting period (e.g. a calendar month) associated with the target intervals to fetch. The reporting period should be represented with the format YYYY-MM (e.g. "2025-07").                                         |
+| contact_uuid     | Unless contact_uuids is provided | The UUID of the contact associated with the target intervals to fetch. Either `contact_uuid` or `contact_uuids` must be provided (but not both).                                                                         |
+| contact_uuids    | Unless contact_uuid is provided  | The UUIDs of the contacts associated with the target intervals to fetch. Either `contact_uuid` or `contact_uuids` must be provided (but not both).                                                                       |
+| cursor           | false                            | The token identifying which page to retrieve. A `null` value indicates the first page should be returned. Subsequent pages can be retrieved by providing the cursor returned with the previous page. Defaults to `null`. |
+| limit            | false                            | The total number of target intervals to fetch. Defaults to `100`.                                                                                                                                                        |
+
+#### Examples
+
+Get an array of target intervals for a reporting period an array of contact UUIDs.
+
+```
+GET /api/v1/target-interval?reporting_period=2025-12&contact_uuids=8a1cb778-f0df-43fc-8864-51dd4230f1c8,c3f6b91e-b095-48ef-a524-705e29fd9f6d
+```
+
+```
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=utf-8
+
+{
+  "data": [
+    {
+      "_id": "target~2025-12~8a1cb778-f0df-43fc-8864-51dd4230f1c8~org.couchdb.user:demo",
+      "_rev": "14-3332c163c44709112972948675a9c755",
+      "type": "target",
+      "user": "org.couchdb.user:demo",
+      "owner": "8a1cb778-f0df-43fc-8864-51dd4230f1c8",
+      "reporting_period": "2025-12",
+      "targets": [
+        {
+          "id": "deaths-this-month",
+          "value": {
+            "pass": 8,
+            "total": 9
+          }
+        },
+        {
+          "id": "births-this-month",
+          "value": {
+            "pass": 0,
+            "total": 0
+          }
+        },
+        {
+          "id": "facility-deliveries",
+          "value": {
+            "pass": 4,
+            "total": 4,
+            "percent": 100
+          }
+        }
+      ],
+      "updated_date": 1766037600000
+    },
+    {
+      "_id": "target~2025-12~c3f6b91e-b095-48ef-a524-705e29fd9f6d~org.couchdb.user:omed",
+      "_rev": "3-303069f0e6cc4668885c43411293f4b6",
+      "type": "target",
+      "user": "org.couchdb.user:omed",
+      "owner": "c3f6b91e-b095-48ef-a524-705e29fd9f6d",
+      "reporting_period": "2025-12",
+      "targets": [
+        {
+          "id": "deaths-this-month",
+          "value": {
+            "pass": 20,
+            "total": 20
+          }
+        },
+        {
+          "id": "births-this-month",
+          "value": {
+            "pass": 0,
+            "total": 0
+          }
+        },
+        {
+          "id": "facility-deliveries",
+          "value": {
+            "pass": 4,
+            "total": 4,
+            "percent": 100
+          }
+        }
+      ],
+      "updated_date": 1763013600000
+    }
+  ],
+  "cursor": null
+}
+```
+
 ## Users
 
 All user related requests are limited to users with admin privileges by default.
