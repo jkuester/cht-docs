@@ -2079,20 +2079,20 @@ Content-Type: application/json; charset=utf-8
 }
 ```
 
-## Target Interval
+## Target
 
-### GET/api/v1/target-interval/{{uuid}}
+### GET/api/v1/target/{{id}}
 
 *Added in 5.1.0*
 
-Returns a target interval's data in JSON format.
+Returns data in JSON format about a particular target for a user.
 
 #### Examples
 
-Get a report by uuid:
+Get a target by id:
 
 ```
-GET /api/v1/target-interval/target~2025-07~8a1cb778-f0df-43fc-8864-51dd4230f1c8~org.couchdb.user:demo
+GET /api/v1/target/target~2025-07~8a1cb778-f0df-43fc-8864-51dd4230f1c8~org.couchdb.user:demo
 ```
 
 ```
@@ -2134,28 +2134,28 @@ Content-Type: application/json; charset=utf-8
 }
 ```
 
-### GET /api/v1/target-interval
+### GET /api/v1/target
 
 *Added in 5.1.0*
 
-Returns a JSON array of target intervals based on the specified page parameters.
+Returns a JSON array of targets based on the specified page parameters.
 
 #### Query Parameters
 
-| Name             | Required                         | Description                                                                                                                                                                                                              |
-|------------------|----------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| reporting_period | true                             | The reporting period (e.g. a calendar month) associated with the target intervals to fetch. The reporting period should be represented with the format YYYY-MM (e.g. "2025-07").                                         |
-| contact_uuid     | Unless contact_uuids is provided | The UUID of the contact associated with the target intervals to fetch. Either `contact_uuid` or `contact_uuids` must be provided (but not both).                                                                         |
-| contact_uuids    | Unless contact_uuid is provided  | The UUIDs of the contacts associated with the target intervals to fetch. Either `contact_uuid` or `contact_uuids` must be provided (but not both).                                                                       |
-| cursor           | false                            | The token identifying which page to retrieve. A `null` value indicates the first page should be returned. Subsequent pages can be retrieved by providing the cursor returned with the previous page. Defaults to `null`. |
-| limit            | false                            | The total number of target intervals to fetch. Defaults to `100`.                                                                                                                                                        |
+| Name             | Required                       | Description                                                                                                                                                                                                              |
+|------------------|--------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| reporting_period | true                           | The reporting period (e.g. a calendar month) associated with the targets to fetch. The reporting period should be represented with the format YYYY-MM (e.g. "2025-07").                                                  |
+| contact_id       | Unless contact_ids is provided | The id of the contact associated with the targets to fetch. Either `contact_id` or `contact_ids` must be provided (but not both).                                                                                        |
+| contact_ids      | Unless contact_id is provided  | The ids of the contacts associated with the targets to fetch. Either `contact_id` or `contact_ids` must be provided (but not both).                                                                                      |
+| cursor           | false                          | The token identifying which page to retrieve. A `null` value indicates the first page should be returned. Subsequent pages can be retrieved by providing the cursor returned with the previous page. Defaults to `null`. |
+| limit            | false                          | The total number of targets to fetch. Defaults to `100`.                                                                                                                                                                 |
 
 #### Examples
 
-Get an array of target intervals for a reporting period an array of contact UUIDs.
+Get an array of targets for a reporting period an array of contact Ids.
 
 ```
-GET /api/v1/target-interval?reporting_period=2025-12&contact_uuids=8a1cb778-f0df-43fc-8864-51dd4230f1c8,c3f6b91e-b095-48ef-a524-705e29fd9f6d
+GET /api/v1/target?reporting_period=2025-12&contact_ids=8a1cb778-f0df-43fc-8864-51dd4230f1c8,c3f6b91e-b095-48ef-a524-705e29fd9f6d
 ```
 
 ```
